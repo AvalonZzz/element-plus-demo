@@ -94,7 +94,7 @@ let data = [
   {
     name: "表格",
     icon: "HelpFilled",
-    index: "/calendar",
+    index: "/table",
   },
 ];
 </script>

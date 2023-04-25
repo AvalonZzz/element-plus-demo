@@ -9,6 +9,7 @@ import progress from "./progress/index";
 import chooseTime from "./chooseTime/index";
 import chooseDate from "./chooseDate/index";
 import chooseCity from "./chooseCity/index";
+import table from "./table/index";
 
 const components = [
   chooseArea,
@@ -21,6 +22,7 @@ const components = [
   chooseTime,
   chooseDate,
   chooseCity,
+  table,
 ];
 
 export default {

@@ -89,7 +89,7 @@ let data = [
   {
     name: "表单",
     icon: "Setting",
-    index: "/calendar",
+    index: "/form",
   },
   {
     name: "表格",

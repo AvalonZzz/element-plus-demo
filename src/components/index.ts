@@ -10,6 +10,7 @@ import chooseTime from "./chooseTime/index";
 import chooseDate from "./chooseDate/index";
 import chooseCity from "./chooseCity/index";
 import table from "./table/index";
+import form from "./form/index";
 
 const components = [
   chooseArea,
@@ -23,6 +24,7 @@ const components = [
   chooseDate,
   chooseCity,
   table,
+  form,
 ];
 
 export default {

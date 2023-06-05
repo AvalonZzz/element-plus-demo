@@ -11,6 +11,8 @@ import chooseDate from "./chooseDate/index";
 import chooseCity from "./chooseCity/index";
 import table from "./table/index";
 import form from "./form/index";
+import modalForm from "./modalForm/index";
+import calendar from "./calendar/index";
 
 const components = [
   chooseArea,
@@ -25,6 +27,8 @@ const components = [
   chooseCity,
   table,
   form,
+  modalForm,
+  calendar,
 ];
 
 export default {

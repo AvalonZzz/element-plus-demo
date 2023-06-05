@@ -17,6 +17,7 @@
     @confirm="confirm"
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
+    @change-page="handleChangePage"
   >
     <template #date="{ scope }">
       <el-icon-timer></el-icon-timer>
@@ -133,7 +134,7 @@ let getData = () => {
       if (res.data.code === "200") {
         tableData.value = res.data.data.rows;
         total.value = res.data.data.total;
-        console.log(res.data.data);
+        console.log(tableData.value, "---getDt");
       }
     });
 };
@@ -142,6 +143,8 @@ let handleSizeChange = (val: number) => {
   getData();
 };
 let handleCurrentChange = (val: number) => {
+  console.log(123);
+
   current.value = val;
   getData();
 };
@@ -158,6 +161,9 @@ let sure = (scope: any) => {
 };
 let confirm = (scope: any) => {
   // console.log(scope)
+};
+let handleChangePage = (val: any) => {
+  current.value = val;
 };
 </script>
 

@@ -92,6 +92,11 @@ let data = [
     index: "/form",
   },
   {
+    name: "弹出框表单",
+    icon: "Setting",
+    index: "/modalForm",
+  },
+  {
     name: "表格",
     icon: "HelpFilled",
     index: "/table",

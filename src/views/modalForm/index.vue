@@ -1,19 +1,26 @@
 <template>
   <div>
-    <c-form
-      ref="form"
-      label-width="100px"
+    <el-button type="primary" @click="open">open</el-button>
+    <modal-form
+      title="编辑用户"
+      width="50%"
+      :isScroll="true"
+      v-model:visible="visible"
       :options="options"
-      @onPreview="onPreview"
-      @onSuccess="onSuccess"
-      @onError="onError"
-      @onRemove="onRemove"
-      @onProgress="onProgress"
-      @onChange="onChange"
-      @onExceed="onExceed"
-      @beforeRemove="beforeRemove"
-      @beforeUpload="beforeUpload"
+      :onPreview="onPreview"
+      :onSuccess="onSuccess"
+      :onError="onError"
+      :onRemove="onRemove"
+      :onProgress="onProgress"
+      :onChange="onChange"
+      :onExceed="onExceed"
+      :beforeRemove="beforeRemove"
+      :beforeUpload="beforeUpload"
     >
+      <template #footer="{ form }">
+        <el-button @click="cancel">取消</el-button>
+        <el-button type="primary" @click="confirm(form)">确认</el-button>
+      </template>
       <template #uploadArea>
         <el-button type="primary">Click to upload</el-button>
       </template>
@@ -22,11 +29,7 @@
           jpg/png files with a size less than 500KB.
         </div></template
       >
-      <template #action="scope">
-        <el-button type="primary" @click="submitForm(scope)">提交</el-button>
-        <el-button @click="resetForm()">重置</el-button>
-      </template>
-    </c-form>
+    </modal-form>
   </div>
 </template>
 
@@ -35,11 +38,7 @@ import { ref } from "vue";
 import { FormInstance, FormOptions } from "@/components/form/src/types/types";
 import { ElMessage, ElMessageBox } from "element-plus";
 
-interface Scope {
-  form: FormInstance;
-  model: any;
-}
-
+let visible = ref<boolean>(false);
 let options: FormOptions[] = [
   {
     type: "input",
@@ -168,7 +167,28 @@ let options: FormOptions[] = [
     rules: [{ required: true, message: "描述不能位空", trigger: "blur" }],
   },
 ];
-let form = ref();
+
+const open = () => {
+  visible.value = true;
+};
+
+const confirm = (form: any) => {
+  let validate = form.validate();
+  let model = form.getFormData();
+  validate((valid: any) => {
+    if (valid) {
+      ElMessage.success("验证成功");
+      console.log(model);
+      visible.value = false;
+    } else {
+      ElMessage.error("验证失败");
+    }
+  });
+};
+
+const cancel = (form: FormInstance) => {
+  visible.value = false;
+};
 
 const onPreview = (val: any) => {
   console.log("onPreview------", val.file);
@@ -205,20 +225,6 @@ const beforeRemove = (val: any) => {
 };
 const beforeUpload = (val: any) => {
   console.log("beforeUpload------", val.file);
-};
-// const httpRequest = () => {};
-
-const submitForm = (scope: Scope) => {
-  scope.form.validate((valid) => {
-    if (valid) {
-    } else {
-      ElMessage.error("表单填写有误，请检查");
-    }
-  });
-};
-
-const resetForm = () => {
-  form.value.resetFields();
 };
 </script>
 

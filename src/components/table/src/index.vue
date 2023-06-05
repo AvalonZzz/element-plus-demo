@@ -80,7 +80,7 @@
     :style="{ justifyContent }"
   >
     <el-pagination
-      v-model:currentPage="pageIndex"
+      v-model:currentPage="currentPageCopy"
       :page-sizes="pageSizes"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
@@ -181,6 +181,7 @@ let emits = defineEmits([
   "update:editRowIndex",
   "size-change",
   "current-change",
+  "change-page",
 ]);
 
 // 分页的每一页数据变化
@@ -190,14 +191,14 @@ let handleSizeChange = (val: number) => {
 };
 // 分页页数改变
 let handleCurrentChange = (val: number) => {
+  console.log("handleCurren");
+
   emits("current-change", val);
   // console.log(val)
 };
 
 // 当前被点击的单元格的标识
 let currentEdit = ref<string>("");
-
-let pageIndex = ref(props.currentPage);
 
 // 拷贝一份表格的数据
 let tableData = ref<any[]>(cloneDeep(props.data));
@@ -213,10 +214,11 @@ let stopWatchData = watch(
   (val) => {
     watchData.value = true;
     tableData.value = val;
+    console.log("tableData", tableData, val);
     tableData.value.map((item) => {
       item.rowEdit = false;
     });
-    if (watchData.value) stopWatchData();
+    // if (watchData.value) stopWatchData();
   },
   { deep: true }
 );
@@ -248,6 +250,15 @@ let justifyContent = computed(() => {
   if (props.paginationAlign === "left") return "flex-start";
   else if (props.paginationAlign === "right") return "flex-end";
   else return "center";
+});
+
+let currentPageCopy = computed({
+  get() {
+    return props.currentPage;
+  },
+  set(val) {
+    emits("change-page", val);
+  },
 });
 
 // 点击编辑图标
